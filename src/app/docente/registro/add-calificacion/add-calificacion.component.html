@@ -1,0 +1,65 @@
+<div class="container mt-5">
+    <h2>Agregar Calificación</h2>
+    <div class="row mt-4">
+        <div class="col-12">
+            <button routerLink="/docente/calificacion/list" class="btn btn-primary">Volver a Lista de Calificaciones</button>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nombre del Estudiante</th>
+                        <th>Asignaturas</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let datos of datosCalificacion">
+                        <td>{{ datos.estudiante.nombre }}</td>
+                        <td>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Asignatura</th>
+                                        <th>Calificación</th>
+                                        <th>Literal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let calificacion of datos.calificaciones">
+                                        <td class="col-4">
+                                            {{ calificacion.nombreAsignatura }}
+                                            <input type="hidden" [(ngModel)]="calificacion.calificacionId">
+                                            <input type="hidden" [(ngModel)]="calificacion.asignaturaId">
+                                        </td>
+                                        <td class="col-5">
+                                            <input placeholder="Ingresa la calificación" type="number"
+                                                class="form-control" [(ngModel)]="calificacion.nota"
+                                                (input)="updateLiteral(datos, calificacion)">
+                                        </td>
+                                        <td class="col-3">{{ calificacion.literal }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" (click)="saveAllGrades(datos)">Guardar todas las
+                                calificaciones</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="pagination-container d-flex align-items-center justify-content-center">
+                <pagination [totalItems]="totalItems" [(ngModel)]="pageNumber" [itemsPerPage]="pageSize" [maxSize]="5"
+                    [rotate]="true" (pageChanged)="pageChanged($event)">
+                </pagination>
+            </div>
+        </div>
+    </div>
+</div>

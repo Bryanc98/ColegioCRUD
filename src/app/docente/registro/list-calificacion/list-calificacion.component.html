@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-12">
+        <h2>Lista de Calificaciones</h2>
+        <div *ngIf="!isCoordinador" class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-primary" routerLink="/docente/calificacion/add">Agregar/Editar calificaciones</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="row mt-5 mb-3">
+                    <div class="col-md-3">
+                      <label for="search">Buscar</label>
+                      <input type="text" class="form-control" placeholder="Buscar por nombre" [(ngModel)]="searchName"
+                        (input)="applyFilters()">
+                    </div>
+                    <div *ngIf="isCoordinador" class="col-md-3">
+                      <label for="course">Curso</label>
+                      <select title="Seleccionar curso" ariname="course selector" class="form-control" [(ngModel)]="selectedCourse"
+                        (change)="applyFilters()">
+                        <option value="">Todos los cursos</option>
+                        <option *ngFor="let course of courses" [value]="course.cursoId">{{ course.nombreCurso }}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="asignatura">Asignatura</label>
+                      <select title="Seleccionar Asignatura" class="form-control" [(ngModel)]="selectedAsignatura" (change)="applyFilters()">
+                        <option value="">Todas las asignaturas</option>
+                        <option *ngFor="let asignatura of asignaturas" [value]="asignatura.asignaturaId">{{ asignatura.nombreAsignatura }}</option>
+                      </select>
+                    </div>
+                  </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Estudiante</th>
+                            <th>Nivel</th>
+                            <th>Curso</th>
+                            <th>Asignatura</th>
+                            <th>Calificación</th>
+                            <th>Literal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let calificacion of calificacionesFiltered | slice:(currentPage-1)*itemsPerPage:(currentPage*itemsPerPage)">
+                            <td>{{calificacion.estudiante.nombre}}</td>
+                            <td>{{calificacion.nivel.nombreNivel}}</td>
+                            <td>{{calificacion.curso.nombreCurso}}</td>
+                            <td>{{calificacion.asignatura.nombreAsignatura}}</td>
+                            <td>{{calificacion.nota}}</td>
+                            <td>{{calificacion.literal}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)"></pagination>
+            </div>
+    </div>
+</div>

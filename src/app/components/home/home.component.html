@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/">ColegioApp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Control de Asistencia
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/docente/asistencia/list">Lista de asistencias</a></li>
+              <li><a class="dropdown-item" *ngIf="!isCoordinator" routerLink="/docente/asistencia/add">Agregar asistencia</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Control de Calificaciones
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/docente/calificacion/list">Lista de Calificaciones</a></li>
+              <li><a class="dropdown-item" *ngIf="!isCoordinator" routerLink="/docente/calificacion/add">Agregar Calificación</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Control de Estudiantes
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/coordinador/estudiante/list">Lista de Estudiantes</a></li>
+              <li><a class="dropdown-item" *ngIf="isCoordinator" routerLink="/coordinador/estudiante/add">Agregar Estudiante</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto mb-0 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <div>{{ userData?.nombre }}</div>
+              <div>{{ userData?.role.roleName }}</div>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item cursor-pointer" (click)="logOut()" >Cerrar sesión</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container mt-5">
+    <router-outlet></router-outlet>
+  </div>
+  

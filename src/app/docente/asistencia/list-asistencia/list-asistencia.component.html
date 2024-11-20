@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4">Lista de Asistencia</h2>
+        <div class="row mt-3">
+            <div class="col-3">
+                <button type="button" routerLink="/docente/asistencia/add" class="btn btn-primary">Agregar Asistencia</button>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nivel</th>
+                            <th>Curso</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let record of records">
+                            <td>{{record.nivel.nombreNivel}}</td>
+                            <td>{{record.curso.nombreCurso}}</td>
+                            <td>{{record.fechaRegistro | date: 'dd/MM/yyyy, h:mm a'}}</td>
+                            <td>
+                                <a [routerLink]="['/docente/asistencia/view', record.recordId]" class="btn btn-info">Ver</a>
+                                <a *ngIf="!isCoordinador" [routerLink]="['/docente/asistencia/edit', record.recordId]" class="btn btn-primary">Editar</a>
+                                &nbsp;
+                                <button *ngIf="!isCoordinador" (click)="deleteAttendance(record.recordId)" class="btn btn-danger">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

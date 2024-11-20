@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-12">
+    <h2 class="mb-4">{{editMode? 'Editar Asistencia': 'Agregar Asistencia'}}</h2>
+    <div class="row mt-3">
+      <div class="col-3">
+        <h4>Datos del curso</h4>
+        <div class="mt-3">
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Nivel
+              <span class="badge text-bg-primary rounded-pill">{{course.nivel.nombreNivel}}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Curso
+              <span class="badge text-bg-primary rounded-pill">{{course.nombreCurso}}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Fecha
+              <span class="badge text-bg-primary rounded-pill">{{fechaRegistro | date:'dd/MM/yyyy'}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!editMode" class="row mt-5">
+      <div class="col-3">
+        <label>Fecha</label>
+        <input name="fechaRegistro" [(ngModel)]="fechaRegistro" bsDatepicker [bsConfig]="datePickerConfig" placeholder="Seleccione una fecha" type="text" class="form-control"/>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-6">
+        <table class="table table-sm table-borderless">
+          <thead>
+            <tr>
+              <th>Nombre del Estudiante</th>
+              <th class="text-center">Presente</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of students">
+              <td class="col-1">{{ student.nombre }}</td>
+              <td class="col-1 text-center">
+                <input type="hidden" name="estudianteId" [value]="student.estudianteId" [(ngModel)]="student.estudianteId">
+                <input type="hidden" name="asistenciaId" [value]="student.asistenciaId" [(ngModel)]="student.asistenciaId">
+                <input title="asistencia-checkbox" type="checkbox" [(ngModel)]="student.presente">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-6 align-items-end">
+        <button class="btn btn-outline-primary" (click)="confirmReturn()">Volver</button>
+        &nbsp;
+        <button class="btn btn-primary" (click)="onSubmit()">{{editMode? 'Actualizar Asistencia': 'Guardar Asistencia'}}</button>
+      </div>
+    </div>
+  </div>
+</div>
